@@ -1,6 +1,4 @@
-<img width="100%" src="repo/cover.png" />
-
-### Minimalist express-typescript-boilerplate
+### Social-Yard Backend API
 
 
 #### Available Scripts
@@ -13,7 +11,3 @@
 - `dev` - runs nodemon on the dist folder, 
           hot reloading on changes made in ts(cleans the old dist folder then rebuilds)
 ```
-
-#### Features
-Contains optional MongoDb connection via Mongoose, with sample Post model.
-Contains folder structure for controllers, models, and routes
