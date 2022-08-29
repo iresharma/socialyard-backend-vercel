@@ -1,5 +1,5 @@
 import { connect } from "mongoose";
-let monURI = "mongodb://localhost:27017/express-typescript-demo";
+let monURI = "mongodb+srv://socialyard:socialyard123@db-dev.pof2mrj.mongodb.net/?retryWrites=true&w=majority";
 
 const connectDB = async () => {
   try {

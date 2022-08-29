@@ -13,8 +13,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 5000);
 
-//OPTIONAL Mongodb
-//connectDB();
+connectDB();
 initRouter(app);
 
 app.listen(app.get('port'), () => {
