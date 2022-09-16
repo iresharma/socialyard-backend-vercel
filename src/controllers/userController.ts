@@ -1,3 +1,4 @@
+import { get_one } from '@/database/functions';
 import User from '@/models/user';
 import { Request, Response } from 'express';
 
@@ -18,17 +19,8 @@ export async function create_user(req: Request, res: Response) {
 export async function get_user(req: Request, res: Response) {
     console.log(req)
     let id = req.params.id
-    try {
-        console.log(id)
-        const response = await User.findById(id).exec()
-        console.log(response)
-        res.json({ message: "User Fetched Successfully", code: 200 , data: response})
-    } catch (error) {
-        res.json({
-            message: error.message,
-            code: error.code
-        })
-    }
+    let response = await get_one(User, id)
+    res.json(response)
 }
 
 export async function get_users(req: Request, res: Response) {

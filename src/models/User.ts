@@ -1,16 +1,4 @@
 import { Document, model, Schema } from "mongoose";
-
-/**
- * Interface to model the User Schema for TypeScript.
- * @param _id:string
- * @param name:string
- * @param email: string
- * @param phone:string
- * @param dob:string
- * @param type:string
- * @param notificationToken:string
- * @param createdAt:Date
- */
 export interface IUser extends Document {
     _id: string,
     email: string;
