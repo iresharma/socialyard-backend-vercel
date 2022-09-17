@@ -1,23 +1,31 @@
-import { create_one, get_many, get_one } from '@/database/functions';
+import { create_one, get_many, get_one, get_all } from '@/database/functions';
 import Facility from '@/models/facility';
 import { Request, Response } from 'express';
 
 export async function create_facility(req: Request, res: Response) {
-    let facility_data = req.body
-    const response = await create_one(Facility, facility_data)
-    res.json(response)
+  let facility_data = req.body;
+  const response = await create_one(Facility, facility_data);
+  res.json(response);
 }
 
 export async function get_facility(req: Request, res: Response) {
-    let id = req.params.id
-    const response = await get_one(Facility, id)
-    res.json(response)
+  let id = req.params.id;
+  const response = await get_one(Facility, id);
+  res.json(response);
 }
 
 export async function list_facilities(req: Request, res: Response) {
-    let queries = req.body || []
-    const response = await get_many(Facility, queries)
-    res.json(response)
+  let queries = req.body || [];
+  const response = await get_many(Facility, queries);
+  res.json(response);
+}
+
+export async function list_facilities_all(req: Request, res: Response) {
+  let { page, size } = req.params;
+  if (!page) return res.status(400).send('page required');
+  if (!size) return res.status(400).send('size required');
+  const response = await get_all(Facility, Number(page), Number(size));
+  res.json(response);
 }
 
 // {
