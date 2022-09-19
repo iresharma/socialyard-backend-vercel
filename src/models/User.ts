@@ -1,11 +1,16 @@
 import { Document, model, Schema } from "mongoose";
+enum UserType {
+    CUSTOMER = 'CUSTOMER',
+    VENDOR = 'VENDOR',
+    ADMIN = 'ADMIN',
+}
 export interface IUser extends Document {
     _id: string,
     email: string;
     name: string;
     phone: string;
     dob: string,
-    type: string,
+    type: UserType,
     notificationToken: string,
     createdAt: Date;
 }
@@ -21,7 +26,8 @@ const userSchema: Schema = new Schema({
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        
     },
     type: {
         type: String,

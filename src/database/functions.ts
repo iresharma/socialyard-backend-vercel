@@ -14,12 +14,14 @@ export const get_one = async (model: any, id: string) => {
   }
 };
 
-export const get_many = async (model: any, queryArr: any[]) => {
+export const get_many = async (model: any, filterArr: any[], page: number, size: number) => {
   try {
     let request = model.find();
-    queryArr.forEach((query) => {
-      request = request.where(query.column).equals(query.value);
+    filterArr.forEach((filter) => {
+      request = request.where(filter.column).equals(filter.value);
     });
+    request = request.skip(page * size)
+    .limit(size);
     const response = await request.exec();
     console.log(response);
     return { message: 'Fetched Successfully', code: 200, data: response };
@@ -31,7 +33,7 @@ export const get_many = async (model: any, queryArr: any[]) => {
   }
 };
 
-export const create_one = async (model: any, data: string) => {
+export const create_one = async (model: any, data: any) => {
   try {
     const model_obj = new model(data);
     const response = await model_obj.save();

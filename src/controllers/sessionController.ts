@@ -7,7 +7,7 @@ export async function create_session(req: Request, res: Response) {
     let sessionData = req.body
     const userResponse = await User.findById(sessionData.uid).exec()
     const response = await create_one(Session, { ...sessionData, 'type': userResponse.type })
-    res.json(response)
+    res.json({...response, data: userResponse})
 }
 export async function delete_session(req: Request, res: Response) {
     let id = req.params.id

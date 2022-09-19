@@ -1,7 +1,9 @@
-import { get_one } from '@/database/functions';
+import { USER_TYPES } from '@/constants';
+import { create_account, delete_account } from '@/database/firebase';
+import { create_one, get_one } from '@/database/functions';
 import User from '@/models/user';
 import { Request, Response } from 'express';
-
+const admin = require('firebase-admin');
 export async function create_user(req: Request, res: Response) {
     let user = req.body
     const emp = new User(user);
@@ -13,6 +15,32 @@ export async function create_user(req: Request, res: Response) {
             message: error.message,
             code: error.code
         })
+    }
+}
+
+export async function create_vendor(req: Request, res: Response) {
+    let userData = req.body
+    const firebaseResponse = await create_account(userData)
+    if(firebaseResponse.code == 200){
+        const user = firebaseResponse.data;
+        let userObject = {
+            _id: user.uid,
+            email: user.email,
+            name: user.displayName,
+            phone: "",
+            dob: "",
+            type: USER_TYPES.VENDOR,
+            notificationToken: ""
+        }
+        console.log(user)
+        const response = await create_one(User, userObject);
+        if(response.code != 200) {
+            // Delete Firebase user
+            await delete_account(user.uid)
+        }
+        res.json(response);
+    } else {
+        res.json(firebaseResponse)
     }
 }
 

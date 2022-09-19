@@ -15,8 +15,10 @@ export async function get_facility(req: Request, res: Response) {
 }
 
 export async function list_facilities(req: Request, res: Response) {
-  let queries = req.body || [];
-  const response = await get_many(Facility, queries);
+  let filters = req.body.filters || [];
+  let page = req.body.page
+  let size = req.body.size
+  const response = await get_many(Facility, filters, Number(page), Number(size));
   res.json(response);
 }
 
