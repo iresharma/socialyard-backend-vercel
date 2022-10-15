@@ -1,5 +1,5 @@
 import { create_one, get_many, get_one, get_all, update_one } from '@/database/functions';
-import Facility from '@/models/facility';
+import Facility from '@/models/Facility';
 import { Request, Response } from 'express';
 
 export async function create_facility(req: Request, res: Response) {

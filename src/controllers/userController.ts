@@ -1,7 +1,7 @@
 import { USER_TYPES } from '@/constants';
 import { create_account, delete_account } from '@/database/firebase';
 import { create_one, get_one, update_one } from '@/database/functions';
-import User from '@/models/user';
+import User from '@/models/User';
 import { Request, Response } from 'express';
 const admin = require('firebase-admin');
 export async function create_user(req: Request, res: Response) {

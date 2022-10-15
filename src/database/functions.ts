@@ -1,5 +1,3 @@
-import Facility from '@/models/facility';
-import { Model } from 'mongoose';
 
 export const get_one = async (model: any, id: string) => {
   try {
@@ -87,7 +85,7 @@ export const get_all = async (model: any, page: number, page_size: number) => {
 export const update_one = async (model: any, id:string, data: any) => {
   console.log(data)
   try {
-    Facility.updateOne()
+    model.updateOne()
     const response = await model.updateOne(
       { id },
       { $set: data }
