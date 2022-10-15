@@ -12,6 +12,7 @@ export interface IUser extends Document {
     dob: string,
     type: UserType,
     notificationToken: string,
+    isActive: boolean,
     createdAt: Date;
 }
 
@@ -40,6 +41,10 @@ const userSchema: Schema = new Schema({
     notificationToken: {
         type: String,
         required: false
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,

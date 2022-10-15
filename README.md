@@ -11,3 +11,7 @@
 - `dev` - runs nodemon on the dist folder, 
           hot reloading on changes made in ts(cleans the old dist folder then rebuilds)
 ```
+
+
+#### Setup Firebase Creds
+$env:GOOGLE_APPLICATION_CREDENTIALS="D:\Social Yard\backend-api\firebase-config.json"

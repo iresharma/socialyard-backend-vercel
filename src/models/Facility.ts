@@ -16,6 +16,7 @@ export interface IFacility extends Document {
     tags: string[];
     category: string;
     coordinates: number[];
+    vendor: string,
     createdAt: Date;
 }
 
@@ -82,6 +83,10 @@ const facilitySchema: Schema = new Schema({
     },
     coordinates: {
         type: [Number],
+        required: true
+    },
+    vendor: {
+        type: String,
         required: true
     },
     createdAt: {

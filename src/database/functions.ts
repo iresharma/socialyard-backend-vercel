@@ -1,3 +1,4 @@
+import Facility from '@/models/facility';
 import { Model } from 'mongoose';
 
 export const get_one = async (model: any, id: string) => {
@@ -14,12 +15,20 @@ export const get_one = async (model: any, id: string) => {
   }
 };
 
-export const get_many = async (model: any, filterArr: any[], page: number, size: number) => {
+export const get_many = async (model: any, page: number, size: number, filterArr: any[] = [],) => {
   try {
     let request = model.find();
     filterArr.forEach((filter) => {
       request = request.where(filter.column).equals(filter.value);
     });
+    if (!page) return {
+      message: "Page Number Required",
+      code: 500
+    };
+    if (!size) return {
+      message: "Page Size Required",
+      code: 500
+    };
     request = request.skip(page * size)
     .limit(size);
     const response = await request.exec();
@@ -67,6 +76,24 @@ export const get_all = async (model: any, page: number, page_size: number) => {
       .limit(page_size);
     console.log(response);
     return { data: response, code: 200 };
+  } catch (error) {
+    return {
+      message: error.message,
+      code: error.code,
+    };
+  }
+};
+
+export const update_one = async (model: any, id:string, data: any) => {
+  console.log(data)
+  try {
+    Facility.updateOne()
+    const response = await model.updateOne(
+      { id },
+      { $set: data }
+    );
+    console.log(response);
+    return { message: 'Updated Successfully', code: 200 };
   } catch (error) {
     return {
       message: error.message,

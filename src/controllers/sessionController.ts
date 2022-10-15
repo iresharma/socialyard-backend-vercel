@@ -1,4 +1,4 @@
-import { create_one, delete_one } from '@/database/functions';
+import { create_one, delete_one, get_one } from '@/database/functions';
 import Session from '@/models/Session';
 import User from '@/models/user';
 import { Request, Response } from 'express';

@@ -1,6 +1,6 @@
 import { USER_TYPES } from '@/constants';
 import { create_account, delete_account } from '@/database/firebase';
-import { create_one, get_one } from '@/database/functions';
+import { create_one, get_one, update_one } from '@/database/functions';
 import User from '@/models/user';
 import { Request, Response } from 'express';
 const admin = require('firebase-admin');
@@ -21,6 +21,7 @@ export async function create_user(req: Request, res: Response) {
 export async function create_vendor(req: Request, res: Response) {
     let userData = req.body
     const firebaseResponse = await create_account(userData)
+    console.log("Firebase User Created with uid", firebaseResponse)
     if(firebaseResponse.code == 200){
         const user = firebaseResponse.data;
         let userObject = {
@@ -30,7 +31,8 @@ export async function create_vendor(req: Request, res: Response) {
             phone: "",
             dob: "",
             type: USER_TYPES.VENDOR,
-            notificationToken: ""
+            notificationToken: "",
+            isActive: false
         }
         console.log(user)
         const response = await create_one(User, userObject);
@@ -65,3 +67,10 @@ export async function get_users(req: Request, res: Response) {
         })
     }
 }
+
+export async function edit_user(req: Request, res: Response) {
+    let id= req.params.id;
+    let data = req.body;
+    const response = await update_one(User, id, data);
+    res.json(response);
+  }
