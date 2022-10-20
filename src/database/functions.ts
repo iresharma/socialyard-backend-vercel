@@ -63,7 +63,7 @@ export const get_all = async (model: any, page: number, page_size: number) => {
   try {
     const response = await model
       .find({})
-      .skip(page * page_size)
+      .skip((page-1) * page_size)
       .limit(page_size);
     console.log(response);
     return { data: response, code: 200 };
