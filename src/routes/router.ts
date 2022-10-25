@@ -13,6 +13,7 @@ import {
   create_session,
   delete_session,
 } from '@/controllers/sessionController';
+import { create_slot, slot_filter } from '@/controllers/slotController';
 const router = express.Router();
 
 router.get('/', home);
@@ -27,6 +28,8 @@ router.get('/facility/:id', get_facility);
 router.get('/facility', list_facilities);
 router.get('/facility/all/:page/:size', list_facilities_all);
 router.get('/facility/filter/:page/:size', facility_filter);
+router.get('/slot/:facility/:date', slot_filter);
+router.put('/slot', create_slot)
 export default function initRouter(app: express.Application) {
   app.use(express.json());
   app.use(router);

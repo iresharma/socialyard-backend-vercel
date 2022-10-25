@@ -123,3 +123,19 @@ export const filters = async (
     };
   }
 };
+
+export const get_filtered = async (
+  model: any,
+  filter: any
+) => {
+  try {
+    const response = await model
+      .find(filter);
+    return { data: response, code: 200 };
+  } catch (error) {
+    return {
+      message: error.message,
+      code: error.code ?? 404,
+    };
+  }
+};

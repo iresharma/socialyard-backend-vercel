@@ -1,4 +1,4 @@
-import { create_one, get_many, get_one, get_all, update_one } from '@/database/functions';
+import { create_one, get_many, get_one, get_all, update_one, filters, get_filtered } from '@/database/functions';
 import Slot from '@/models/Slot';
 import { Request, Response } from 'express';
 
@@ -25,6 +25,14 @@ export async function edit_slot(req: Request, res: Response) {
   res.json(response);
 }
 
+export async function slot_filter(req: Request, res: Response) {
+  let query = req.params;
+  console.log(query)
+  if(!query) return res.status(400).send('query required');
+  let { available } = req.params;
+  const response = await get_filtered(Slot, query);
+  return res.json(response);
+}
 // {
 // 	"id": '12',
 // 	'locationId': '1',
