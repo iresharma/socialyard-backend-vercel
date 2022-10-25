@@ -1,4 +1,4 @@
-import { create_one, get_many, get_one, get_all, update_one } from '@/database/functions';
+import { create_one, get_many, get_one, get_all, update_one, filters} from '@/database/functions';
 import Facility from '@/models/Facility';
 import { Request, Response } from 'express';
 
@@ -22,7 +22,7 @@ export async function list_facilities_all(req: Request, res: Response) {
   let { page, size } = req.params;
   if (!page) return res.status(400).send('page required');
   if (!size) return res.status(400).send('size required');
-  const response = await get_many(Facility, Number(page), Number(size));
+  const response = await get_many(Facility, Number(page), Number(size), req.body.filters || []);
   res.json(response);
 }
 
@@ -32,7 +32,15 @@ export async function edit_facility(req: Request, res: Response) {
   const response = await update_one(Facility, id, facility_data);
   res.json(response);
 }
-
+export async function facility_filter(req: Request, res: Response) {
+  let query = req.query;
+  if(!query) return res.status(400).send('query required');
+  let { page, size } = req.params;
+  if (!page) return res.status(400).send('page required');
+  if (!size) return res.status(400).send('size required');
+  const response = await filters(Facility, query, Number(page), Number(size));
+  return res.json(response);
+}
 // {
 //     "_id": 1,
 //     "name": "Some name",

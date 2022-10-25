@@ -13,7 +13,12 @@ export const get_one = async (model: any, id: string) => {
   }
 };
 
-export const get_many = async (model: any, page: number, size: number, filterArr: any[] = [],) => {
+export const get_many = async (
+  model: any,
+  page: number,
+  size: number,
+  filterArr: any[],
+) => {
   try {
     let request = model.find();
     filterArr.forEach((filter) => {
@@ -27,7 +32,7 @@ export const get_many = async (model: any, page: number, size: number, filterArr
       message: "Page Size Required",
       code: 500
     };
-    request = request.skip(page * size)
+    request = request.skip((page-1) * size)
     .limit(size);
     const response = await request.exec();
     console.log(response);
@@ -70,7 +75,7 @@ export const get_all = async (model: any, page: number, page_size: number) => {
   try {
     const response = await model
       .find({})
-      .skip((page-1) * page_size)
+      .skip((page - 1) * page_size)
       .limit(page_size);
     console.log(response);
     return { data: response, code: 200 };
@@ -96,6 +101,25 @@ export const update_one = async (model: any, id:string, data: any) => {
     return {
       message: error.message,
       code: error.code,
+    };
+  }
+};
+export const filters = async (
+  model: any,
+  filter: any,
+  page: number,
+  page_size: number,
+) => {
+  try {
+    const response = await model
+      .find(filter)
+      .skip((page - 1) * page_size)
+      .limit(page_size);
+    return { data: response, code: 200 };
+  } catch (error) {
+    return {
+      message: error.message,
+      code: error.code ?? 404,
     };
   }
 };
