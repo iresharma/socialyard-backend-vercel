@@ -27,9 +27,13 @@ export async function edit_slot(req: Request, res: Response) {
 
 export async function slot_filter(req: Request, res: Response) {
   let query = req.params;
-  console.log(query)
   if(!query) return res.status(400).send('query required');
-  let { available } = req.params;
+  let { available } = req.query;
+  console.log(available)
+  if(available == 'T') {
+    query['booking'] = ''
+  }
+  console.log(query)
   const response = await get_filtered(Slot, query);
   return res.json(response);
 }
