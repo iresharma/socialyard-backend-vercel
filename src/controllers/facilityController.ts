@@ -1,4 +1,4 @@
-import { create_one, get_many, get_one, get_all } from '@/database/functions';
+import { create_one, get_many, get_one, get_all, filters } from '@/database/functions';
 import Facility from '@/models/facility';
 import { Request, Response } from 'express';
 
@@ -27,7 +27,17 @@ export async function list_facilities_all(req: Request, res: Response) {
   if (!page) return res.status(400).send('page required');
   if (!size) return res.status(400).send('size required');
   const response = await get_all(Facility, Number(page), Number(size));
-  res.json(response);
+  return res.json(response);
+}
+
+export async function facility_filter(req: Request, res: Response) {
+  let query = req.query;
+  if(!query) return res.status(400).send('query required');
+  let { page, size } = req.params;
+  if (!page) return res.status(400).send('page required');
+  if (!size) return res.status(400).send('size required');
+  const response = await filters(Facility, query, Number(page), Number(size));
+  return res.json(response);
 }
 
 // {

@@ -6,6 +6,7 @@ import {
   get_facility,
   list_facilities,
   list_facilities_all,
+  facility_filter
 } from '@/controllers/facilityController';
 import {
   create_session,
@@ -24,6 +25,7 @@ router.put('/facility', create_facility);
 router.get('/facility/:id', get_facility);
 router.get('/facility', list_facilities);
 router.get('/facility/all/:page/:size', list_facilities_all);
+router.get('/facility/filter/:page/:size', facility_filter);
 export default function initRouter(app: express.Application) {
   app.use(express.json());
   app.use(router);
