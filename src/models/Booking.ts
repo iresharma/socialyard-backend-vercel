@@ -1,11 +1,9 @@
-import { Document, model, Schema } from "mongoose";
-export interface ISlot extends Document {
+import { Document, model, Mongoose, Schema } from "mongoose";
+export interface IBooking extends Document {
     _id: string,
-    facility: string,
-	timing: string,
-	date: Date
-	booking: string
-	price: number 
+    userId: String,
+    slotId: String,
+    faclityId: String
 }
 
 const slotSchema: Schema = new Schema({
@@ -13,28 +11,11 @@ const slotSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    facility: {
-        type: String,
-        required: true
-    },
-    timing: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Date,
-        required: true
-    },
-    booking: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    }
+    userId: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    slotId: [{ type: Schema.Types.ObjectId, ref: "Slot" }],
+    facilityId: [{ type: Schema.Types.ObjectId, ref: 'Facility' }],
 });
 
-const Slot = model<ISlot>("Slot", slotSchema);
+const Slot = model<IBooking>("Slot", slotSchema);
 
 export default Slot;

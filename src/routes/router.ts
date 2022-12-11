@@ -14,6 +14,7 @@ import {
   delete_session,
 } from '@/controllers/sessionController';
 import { create_slot, slot_filter } from '@/controllers/slotController';
+import { create_booking, get_booking, list_bookings } from '@/controllers/bookingController';
 const router = express.Router();
 
 router.get('/', home);
@@ -30,6 +31,9 @@ router.get('/facility/all/:page/:size', list_facilities_all);
 router.get('/facility/filter/:page/:size', facility_filter);
 router.get('/slot/:facility/:date', slot_filter);
 router.put('/slot', create_slot)
+router.put('/booking', create_booking)
+router.get('/booking/:booking', get_booking)
+router.post('/booking/:page/:size', list_bookings)
 export default function initRouter(app: express.Application) {
   app.use(express.json());
   app.use(router);
