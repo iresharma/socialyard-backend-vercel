@@ -4,9 +4,10 @@ import express from 'express';
 import cors from 'cors';
 import initRouter from '@/routes/router';
 import connectDB from '@/database/database';
+var morgan = require('morgan')
 
 const app = express();
-
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 // Middleware
 app.use(cors());
 app.use(bodyparser.json());

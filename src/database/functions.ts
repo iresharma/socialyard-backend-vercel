@@ -1,3 +1,4 @@
+import Slot from "@/models/Slot";
 
 export const get_one = async (model: any, id: string) => {
   try {
@@ -26,11 +27,11 @@ export const get_many = async (
     });
     if (!page) return {
       message: "Page Number Required",
-      code: 500
+      code: 400
     };
     if (!size) return {
       message: "Page Size Required",
-      code: 500
+      code: 400
     };
     request = request.skip((page-1) * size)
     .limit(size);

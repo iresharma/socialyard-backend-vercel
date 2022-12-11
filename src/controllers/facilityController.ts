@@ -20,6 +20,7 @@ export async function list_facilities(req: Request, res: Response) {
 
 export async function list_facilities_all(req: Request, res: Response) {
   let { page, size } = req.params;
+  console.log(Number(page), Number(size));
   if (!page) return res.status(400).send('page required');
   if (!size) return res.status(400).send('size required');
   const response = await get_many(Facility, Number(page), Number(size), req.body.filters || []);

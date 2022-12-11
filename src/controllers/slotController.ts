@@ -19,7 +19,7 @@ export async function list_slots(req: Request, res: Response) {
 }
 
 export async function edit_slot(req: Request, res: Response) {
-  let id= req.params.id;
+  let id = req.params.id;
   let slot_data = req.body;
   const response = await update_one(Slot, id, slot_data);
   res.json(response);
@@ -27,13 +27,14 @@ export async function edit_slot(req: Request, res: Response) {
 
 export async function slot_filter(req: Request, res: Response) {
   let query = req.params;
-  if(!query) return res.status(400).send('query required');
+  if (!query) return res.status(400).send('query required');
   let { available } = req.query;
   console.log(available)
-  if(available == 'T') {
+  if (available == 'T') {
     query['booking'] = ''
   }
-  console.log(query)
+  console.log(query['date'] + 'T00:00:00.000');
+  query['date'] = query['date'] + 'T00:00:00.000';
   const response = await get_filtered(Slot, query);
   return res.json(response);
 }
