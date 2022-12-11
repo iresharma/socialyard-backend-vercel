@@ -16,6 +16,6 @@ const slotSchema: Schema = new Schema({
     facilityId: [{ type: Schema.Types.ObjectId, ref: 'Facility' }],
 });
 
-const Slot = model<IBooking>("Slot", slotSchema);
+const Booking = model<IBooking>("Booking", slotSchema);
 
-export default Slot;
+export default Booking;
