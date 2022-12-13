@@ -11,9 +11,9 @@ const slotSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    userId: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    slotId: [{ type: Schema.Types.ObjectId, ref: "Slot" }],
-    facilityId: [{ type: Schema.Types.ObjectId, ref: 'Facility' }],
+    userId: { type: String, required: true },
+    slotId: { type: String, required: true },
+    facilityId: { type: String, required: true },
 });
 
 const Booking = model<IBooking>("Booking", slotSchema);

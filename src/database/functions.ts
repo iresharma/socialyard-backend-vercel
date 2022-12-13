@@ -1,5 +1,3 @@
-import Slot from "@/models/Slot";
-
 export const get_one = async (model: any, id: string) => {
   try {
     console.log(id);
@@ -33,8 +31,8 @@ export const get_many = async (
       message: "Page Size Required",
       code: 400
     };
-    request = request.skip((page-1) * size)
-    .limit(size);
+    request = request.skip((page - 1) * size)
+      .limit(size);
     const response = await request.exec();
     console.log(response);
     return { message: 'Fetched Successfully', code: 200, data: response };
@@ -51,7 +49,7 @@ export const create_one = async (model: any, data: any) => {
     const model_obj = new model(data);
     const response = await model_obj.save();
     console.log(response);
-    return { message: 'Created Successfully', code: 200 };
+    return { message: 'Created Successfully', data: response, code: 200 };
   } catch (error) {
     return {
       message: error.message,
@@ -88,12 +86,12 @@ export const get_all = async (model: any, page: number, page_size: number) => {
   }
 };
 
-export const update_one = async (model: any, id:string, data: any) => {
+export const update_one = async (model: any, id: string, data: any) => {
   console.log(data)
   try {
-    model.updateOne()
+    // model.updateOne()
     const response = await model.updateOne(
-      { id },
+      { '_id': id },
       { $set: data }
     );
     console.log(response);

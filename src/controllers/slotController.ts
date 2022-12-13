@@ -33,8 +33,8 @@ export async function slot_filter(req: Request, res: Response) {
   if (available == 'T') {
     query['booking'] = ''
   }
-  console.log(query['date'] + 'T00:00:00.000');
-  query['date'] = query['date'] + 'T00:00:00.000';
+  query['date'] = query['date'];
+  console.log(query);
   const response = await get_filtered(Slot, query);
   return res.json(response);
 }
