@@ -3,7 +3,7 @@ export interface ISlot extends Document {
     _id: string,
     facility: string,
 	timing: string,
-	date: Date
+	date: String
 	booking: string
 	price: number 
 }
