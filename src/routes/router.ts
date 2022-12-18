@@ -20,8 +20,8 @@ const router = express.Router();
 router.get('/', home);
 router.put('/session/', create_session);
 router.delete('/session/:id', delete_session);
-router.get('/customer/', get_users);
-router.get('/customer/:id', get_user);
+router.get('/user/:type/all', get_users)
+router.get('/user/:id', get_user);
 router.put('/customer', create_user);
 router.put('/vendor', create_vendor);
 router.put('/facility', create_facility);

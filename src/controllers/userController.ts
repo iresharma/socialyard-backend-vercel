@@ -28,7 +28,7 @@ export async function create_vendor(req: Request, res: Response) {
             _id: user.uid,
             email: user.email,
             name: user.displayName,
-            phone: "",
+            phone: userData.phone,
             dob: "",
             type: USER_TYPES.VENDOR,
             notificationToken: "",
@@ -54,10 +54,10 @@ export async function get_user(req: Request, res: Response) {
 }
 
 export async function get_users(req: Request, res: Response) {
-    let id = req.query._id
+    let type = req.params.type
+    console.log(type)
     try {
-        console.log(id)
-        const response = await User.find().where('type').equals('CUSTOMER').exec()
+        const response = await User.find().where('type').equals(type.toUpperCase()).exec()
         console.log(response)
         res.json({ message: "Users Fetched Successfully", code: 200 , data: response})
     } catch (error) {
