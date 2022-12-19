@@ -11,6 +11,7 @@ export const create_account = async (data: any) => {
             password: data.password || generateRandomPass(),
             displayName: data.name,
             disabled: false,
+            phoneNumber: data.phone
         });
         return { message: 'Created Successfully', code: 200 , data: user};
     } catch (error){

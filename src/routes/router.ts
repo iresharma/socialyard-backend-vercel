@@ -15,6 +15,7 @@ import {
 } from '@/controllers/sessionController';
 import { create_slot, slot_filter } from '@/controllers/slotController';
 import { create_booking, get_booking, list_bookings } from '@/controllers/bookingController';
+import { get_vendor_profile, edit_vendor_profile, create_vendor_profile} from '@/controllers/vendorProfileController';
 const router = express.Router();
 
 router.get('/', home);
@@ -24,6 +25,9 @@ router.get('/user/:type/all', get_users)
 router.get('/user/:id', get_user);
 router.put('/customer', create_user);
 router.put('/vendor', create_vendor);
+router.get('/vendor/profile/:id', get_vendor_profile);
+router.put('/vendor/profile', create_vendor_profile);
+router.post('/vendor/profile', edit_vendor_profile);
 router.put('/facility', create_facility);
 router.get('/facility/:id', get_facility);
 router.get('/facility', list_facilities);

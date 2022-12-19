@@ -15,11 +15,8 @@ export async function create_booking(req: Request, res: Response) {
 export async function list_bookings(req: Request, res: Response) {
     const { page, page_size } = req.query;
     let resp;
-    if (req.body.filters.length == 0) {
-        resp = await get_many(Booking, Number(page), Number(page_size), []);
-        return res.json(resp)
-    }
-    resp = await get_many(Booking, Number(page), Number(page_size), req.body.filters || [])
+    resp = await get_many(Booking, Number(page), Number(page_size), req.body.filters.length == 0 ? req.body.filters : [])
+    console.log(resp)
     return res.json(resp)
 }
 
