@@ -1,5 +1,6 @@
 import { create_one, get_many, update_one, get_one } from "@/database/functions";
 import Booking from "@/models/Booking"
+import Facility from "@/models/Facility";
 import Slot from '@/models/Slot'
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid'
@@ -16,7 +17,14 @@ export async function list_bookings(req: Request, res: Response) {
     const { page, size } = req.params;
     const { user, date } = req.query;
     console.log([{ column: 'userId', value: user }]);
-    const resp = await get_many(Booking, Number(page), Number(size), [{ column: 'userId', value: user }, { column: 'date', value: date }])
+    let resp = await get_many(Booking, Number(page), Number(size), [{ column: 'userId', value: user }, { column: 'date', value: date }])
+    let bookings = resp.data;
+    let temp = bookings.map(async (el: any) => {
+        const facility = await get_one(Facility, el.facilityId);
+        const slot = await get_one(Slot, el.slotId);
+        return { booking: el, slot: slot.data, facility: facility.data }
+    })
+    resp.data = await Promise.all(temp);
     return res.json(resp)
 }
 
