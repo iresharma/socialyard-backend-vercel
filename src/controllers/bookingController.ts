@@ -1,4 +1,4 @@
-import { create_one, get_many, get_one, update_one } from "@/database/functions";
+import { create_one, get_many, update_one, get_one } from "@/database/functions";
 import Booking from "@/models/Booking"
 import Slot from '@/models/Slot'
 import { Request, Response } from 'express';
@@ -13,13 +13,10 @@ export async function create_booking(req: Request, res: Response) {
 }
 
 export async function list_bookings(req: Request, res: Response) {
-    const { page, page_size } = req.query;
-    let resp;
-    if (req.body.filters.length == 0) {
-        resp = await get_many(Booking, Number(page), Number(page_size), []);
-        return res.json(resp)
-    }
-    resp = await get_many(Booking, Number(page), Number(page_size), req.body.filters || [])
+    const { page, size } = req.params;
+    const { user, date } = req.query;
+    console.log([{ column: 'userId', value: user }]);
+    const resp = await get_many(Booking, Number(page), Number(size), [{ column: 'userId', value: user }, { column: 'date', value: date }])
     return res.json(resp)
 }
 
