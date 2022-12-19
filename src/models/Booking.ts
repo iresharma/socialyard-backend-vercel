@@ -14,6 +14,7 @@ const slotSchema: Schema = new Schema({
     userId: { type: String, required: true },
     slotId: { type: String, required: true },
     facilityId: { type: String, required: true },
+    date: { type: String, required: true }
 });
 
 const Booking = model<IBooking>("Booking", slotSchema);

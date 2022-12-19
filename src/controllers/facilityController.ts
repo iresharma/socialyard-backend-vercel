@@ -1,9 +1,10 @@
 import { create_one, get_many, get_one, get_all, update_one, filters} from '@/database/functions';
 import Facility from '@/models/Facility';
 import { Request, Response } from 'express';
-
+import { v4 as uuidv4 } from 'uuid'
 export async function create_facility(req: Request, res: Response) {
   let facility_data = req.body;
+  facility_data['_id'] = uuidv4();
   const response = await create_one(Facility, facility_data);
   res.json(response);
 }

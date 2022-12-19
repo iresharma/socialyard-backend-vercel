@@ -95,7 +95,7 @@ export const update_one = async (model: any, id: string, data: any) => {
       { $set: data }
     );
     console.log(response);
-    return { message: 'Updated Successfully', code: 200 };
+    return { message: 'Updated Successfully1', code: 200, data: response.data};
   } catch (error) {
     return {
       message: error.message,

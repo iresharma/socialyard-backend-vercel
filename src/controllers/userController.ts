@@ -71,6 +71,8 @@ export async function get_users(req: Request, res: Response) {
 export async function edit_user(req: Request, res: Response) {
     let id= req.params.id;
     let data = req.body;
+    console.log("EDIT DATA")
+    console.log(data)
     const response = await update_one(User, id, data);
     res.json(response);
   }
