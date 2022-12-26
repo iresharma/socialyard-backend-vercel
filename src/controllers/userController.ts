@@ -47,7 +47,6 @@ export async function create_vendor(req: Request, res: Response) {
 }
 
 export async function get_user(req: Request, res: Response) {
-    console.log(req)
     let id = req.params.id
     let response = await get_one(User, id)
     res.json(response)

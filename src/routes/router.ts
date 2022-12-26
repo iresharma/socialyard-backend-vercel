@@ -15,9 +15,28 @@ import {
 } from '@/controllers/sessionController';
 import { create_slot, slot_filter } from '@/controllers/slotController';
 import { create_booking, get_booking, list_bookings } from '@/controllers/bookingController';
-import { get_vendor_profile, edit_vendor_profile, create_vendor_profile} from '@/controllers/vendorProfileController';
-import { send_whatsApp_API } from '@/controllers/twilioController';
+import { get_vendor_profile, edit_vendor_profile, create_vendor_profile } from '@/controllers/vendorProfileController';
+import { send_whatsApp_API, gen_otp, verify_otp } from '@/controllers/twilioController';
+import { uplaodFile } from "@/controllers/aws/storageController"
 const router = express.Router();
+
+
+const multer = require('multer');
+
+//Define where project photos will be stored
+var storage = multer.diskStorage({
+  destination: function (_: any, file: any, callback: any) {
+    callback(null, './public/uploads');
+  },
+  filename: (_: any, file: any, cb: any) => {
+    cb(null, file.originalname.replace(" ", "-"));
+  },
+});
+
+const upload = multer({ // https://github.com/expressjs/multer
+  storage: storage,
+  limits: { fileSize: 10000000 }
+});
 
 router.get('/', home);
 router.put('/session/', create_session);
@@ -42,6 +61,9 @@ router.put('/booking', create_booking)
 router.get('/booking/:booking', get_booking)
 router.get('/booking/:page/:size', list_bookings)
 router.post('/twilio', send_whatsApp_API);
+router.post('/gen_otp', gen_otp);
+router.post('/verify_otp', verify_otp);
+router.post('/upload', upload.array('files', 10), uplaodFile)
 export default function initRouter(app: express.Application) {
   app.use(express.json());
   app.use(router);
