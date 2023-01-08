@@ -16,12 +16,13 @@ export const get_many = async (
   model: any,
   page: number,
   size: number,
-  filterArr: any[],
+  filters: any,
 ) => {
   try {
     let request = model.find();
-    filterArr.forEach((filter) => {
-      request = request.where(filter.column).equals(filter.value);
+    Object.keys(filters).forEach((key) => {
+      console.log(key, filters[key])
+      request = request.where(key).equals(filters[key]);
     });
     if (!page) return {
       message: "Page Number Required",
@@ -34,7 +35,6 @@ export const get_many = async (
     request = request.skip((page - 1) * size)
       .limit(size);
     const response = await request.exec();
-    console.log(response);
     return { message: 'Fetched Successfully', code: 200, data: response };
   } catch (error) {
     return {
