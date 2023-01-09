@@ -17,7 +17,7 @@ import { create_slot, slot_filter } from '@/controllers/slotController';
 import { create_booking, get_booking, list_bookings } from '@/controllers/bookingController';
 import { get_vendor_profile, edit_vendor_profile, create_vendor_profile } from '@/controllers/vendorProfileController';
 import { send_whatsApp_API, gen_otp, verify_otp } from '@/controllers/twilioController';
-import { uplaodFile } from "@/controllers/aws/storageController"
+import { uploadFile } from "@/controllers/aws/storageController"
 const router = express.Router();
 
 
@@ -63,7 +63,7 @@ router.get('/booking/:page/:size', list_bookings)
 router.post('/twilio', send_whatsApp_API);
 router.post('/gen_otp', gen_otp);
 router.post('/verify_otp', verify_otp);
-router.post('/upload', upload.array('files', 10), uplaodFile)
+router.put('/upload', upload.array('files', 10), uploadFile)
 export default function initRouter(app: express.Application) {
   app.use(express.json());
   app.use(router);

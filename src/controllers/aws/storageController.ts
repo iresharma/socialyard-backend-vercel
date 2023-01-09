@@ -14,7 +14,7 @@ AWS.config.update({
 var s3 = new AWS.S3();
 
 
-export const uplaodFile = (req: Request, res: Response) => {
+export const uploadFile = (req: Request, res: Response) => {
     console.log({
         accessKeyId: accessKeyId,
         secretAccessKey: secretAccessKey
